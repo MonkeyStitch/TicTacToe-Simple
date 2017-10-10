@@ -19,7 +19,19 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
+    @IBOutlet weak var btn9: UIButton!
+    @IBOutlet weak var btn8: UIButton!
+    @IBOutlet weak var btn7: UIButton!
+    @IBOutlet weak var btn6: UIButton!
+    @IBOutlet weak var btn5: UIButton!
+    @IBOutlet weak var btn4: UIButton!
+    @IBOutlet weak var btn3: UIButton!
+    @IBOutlet weak var btn2: UIButton!
+    @IBOutlet weak var btn1: UIButton!
+    
     @IBAction func btnSelectEvent(_ sender: Any) {
         let btnSelect = sender as! UIButton
         playGame(buSelect: btnSelect)
@@ -35,6 +47,7 @@ class ViewController: UIViewController {
             player1.append(buSelect.tag)
             ActivePlayer = 2
             //print(player1)
+            autoPlay()
         }
         else {
             buSelect.setTitle("O", for: UIControlState.normal)
@@ -131,5 +144,44 @@ class ViewController: UIViewController {
         }
     }
     
+    func autoPlay() {
+        // scan empty cells
+        var emptyCells = [Int]()
+        
+        for index in 1...9 {
+            if !( player1.contains(index) || player2.contains(index) ) {
+                emptyCells.append(index)
+            }
+        }
+        
+        let randIndex = arc4random_uniform(UInt32(emptyCells.count))
+        let cellID = emptyCells[Int(randIndex)]
+        var buSelect:UIButton?
+        
+        switch cellID {
+        case 1:
+            buSelect = btn1
+        case 2:
+            buSelect = btn2
+        case 3:
+            buSelect = btn3
+        case 4:
+            buSelect = btn4
+        case 5:
+            buSelect = btn5
+        case 6:
+            buSelect = btn6
+        case 7:
+            buSelect = btn7
+        case 8 :
+            buSelect = btn8
+        case 9:
+            buSelect = btn9
+        default:
+            buSelect = btn1
+        }
+        
+        playGame(buSelect: buSelect!)
+    }
 }
 
